@@ -1,6 +1,6 @@
-﻿/*
+/*
  * Symisc PH7: An embeddable bytecode compiler and a virtual machine for the PHP(5) programming language.
- * Copyright (C) 2011-2012,Symisc Systems http://ph7.symisc.net/
+ * Copyright (C) 2011, 2012, 2013, 2014 Symisc Systems http://ph7.symisc.net/
  * Version 2.1.4
  * For information on licensing,redistribution of this file,and for a DISCLAIMER OF ALL WARRANTIES
  * please contact Symisc Systems via:
@@ -11,7 +11,7 @@
  *      http://ph7.symisc.net/
  */
 /*
- * Copyright (C) 2011, 2012 Symisc Systems. All rights reserved.
+ * Copyright (C) 2011, 2012, 2013, 2014 Symisc Systems. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -34900,10 +34900,12 @@ static sxi32 SyOSUtilRandomSeed(void *pBuf,sxu32 nLen,void *pUnused)
 	fd = open("/dev/urandom",O_RDONLY);
 	if (fd >= 0 ){
 		if( read(fd,zBuf,nLen) > 0 ){
+			close(fd);
 			return SXRET_OK;
 		}
 		/* FALL THRU */
 	}
+	close(fd);
 	pid = getpid();
 	SyMemcpy((const void *)&pid,zBuf,SXMIN(nLen,sizeof(pid_t)));
 	if( &zBuf[nLen] - &zBuf[sizeof(pid_t)] >= (int)sizeof(struct timeval)  ){
@@ -36690,6 +36692,9 @@ PH7_PRIVATE sxi32 PH7_TokenizeRawText(const char *zInput,sxu32 nLen,SySet *pOut)
 				continue;
 			}
 			zIn++;
+			
+			if ( zIn >= zEnd )
+				break;
 		}
 		if( (sxu32)(zEnd - zIn) < sCtag.nByte ){
 			zIn = zEnd;

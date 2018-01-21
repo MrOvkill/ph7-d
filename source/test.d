@@ -1,4 +1,4 @@
 int main(string[] args)
 {
-	return 0;
+  return 0;
 }

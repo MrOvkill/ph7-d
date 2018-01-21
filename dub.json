@@ -1,0 +1,25 @@
+{
+  "name": "php-d",
+  "description": "An embeddable PHP VM for D. Based on sysmic's PH7 Project",
+  "authors": [
+    "Samuel L Meyers"
+  ],
+  "configurations": [
+    {
+      "name": "php-d",
+      "targetType": "library",
+      "lflags": ["-L."],
+      "libs": [
+        "ph7"
+      ]
+    },
+    {
+      "name": "dhp",
+      "targetType": "executable",
+      "lflags": ["-L."],
+      "libs": [
+        "php-d", "ph7"
+      ]
+    }
+  ]
+}
