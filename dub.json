@@ -1,0 +1,11 @@
+{
+    "name": "php-d",
+    "description": "An embeddable PHP7 interpreter for D language.",
+    "lflags": [
+	    "-L.",
+	   "-lph7"
+    ],
+    "dependencies": {
+        
+    }
+}

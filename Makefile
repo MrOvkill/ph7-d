@@ -1,9 +1,10 @@
-CSOURCES=src/interface.cpp src/ph7.c
+CSOURCES=PH7/ph7.c
+CINCLUDE=PH7
 DSOURCES=source/ph7/ph7.d source/app.d
 default:
 	make native-library
 	make d-library
 native-library:
-	g++ -Iinclude -Wno-write-strings -O2 -shared -fPIC $(CSOURCES) -o libph7.so
+	g++ -I$(CINCLUDE) -Wno-write-strings -O2 -shared -fPIC $(CSOURCES) -o libph7.so
 d-library:
-	dmd $(DSOURCES) -ofph7 -L-L. -L-lph7
+	dub build
